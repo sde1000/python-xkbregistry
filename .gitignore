@@ -1,0 +1,11 @@
+*~
+*.pyc
+__pycache__
+/dist/
+/build/
+/*.egg-info
+/.eggs/
+_ffi*.so
+_ffi.c
+_ffi.o
+*.swp
