@@ -9,7 +9,7 @@ from xkbregistry import rxkb
 
 import os
 
-# A directory that is guaranteed to exist
+# A directory that is guaranteed to exist — the one containing this file
 testdir = os.path.dirname(os.path.abspath(__file__))
 # A path that is guaranteed not to exist
 nonexistent = os.path.join(testdir, "must-not-exist")
@@ -70,7 +70,9 @@ class TestContext(TestCase):
         self.assertNotEqual(len(messages), 0)
 
     def test_models(self):
-        ctx = rxkb.Context()
+        ctx = rxkb.Context(no_default_includes=True)
+        ctx.include_path_append(testdir)
+        ctx.parse("test-base")
         self.assertIn("pc102", ctx.models)
         self.assertEqual(ctx.models["pc102"].description,
                          "Generic 102-key PC")
@@ -79,7 +81,9 @@ class TestContext(TestCase):
                          rxkb.Popularity.RXKB_POPULARITY_STANDARD)
 
     def test_layouts(self):
-        ctx = rxkb.Context()
+        ctx = rxkb.Context(no_default_includes=True)
+        ctx.include_path_append(testdir)
+        ctx.parse("test-base")
         self.assertIn("us", ctx.layouts)
         x = ctx.layouts["us"]
         self.assertIsNone(x.variant)
@@ -93,7 +97,9 @@ class TestContext(TestCase):
         self.assertEqual(ctx.layouts["nec_vndr/jp"].iso3166_codes, {"JP"})
 
     def test_layout_variant(self):
-        ctx = rxkb.Context()
+        ctx = rxkb.Context(no_default_includes=True)
+        ctx.include_path_append(testdir)
+        ctx.parse("test-base")
         self.assertIn("us(chr)", ctx.layouts)
         x = ctx.layouts["us(chr)"]
         self.assertEqual(x.fullname, "us(chr)")
@@ -103,7 +109,9 @@ class TestContext(TestCase):
         self.assertSetEqual(x.iso639_codes, {"chr"})
 
     def test_groups(self):
-        ctx = rxkb.Context()
+        ctx = rxkb.Context(no_default_includes=True)
+        ctx.include_path_append(testdir)
+        ctx.parse("test-base")
         # Groups are not required to have names. We are looking for
         # the group called "lv2", because it is short!
         for group in ctx.option_groups:
