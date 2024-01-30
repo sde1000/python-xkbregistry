@@ -89,8 +89,8 @@ class TestContext(TestCase):
         self.assertSetEqual(x.iso639_codes, {"eng"})
         self.assertEqual(x.popularity,
                          rxkb.Popularity.RXKB_POPULARITY_STANDARD)
-        self.assertIn("nec_vndr/jp", ctx.layouts)
-        self.assertEqual(ctx.layouts["nec_vndr/jp"].iso3166_codes, {"JP"})
+        self.assertIn("jp(kana)", ctx.layouts)
+        self.assertEqual(ctx.layouts["jp(kana)"].iso3166_codes, {"JP"})
 
     def test_layout_variant(self):
         ctx = rxkb.Context()
