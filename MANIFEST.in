@@ -1,2 +1,3 @@
 include README.rst
 include tests/*.py
+include tests/rules/*.xml
