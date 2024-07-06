@@ -24,6 +24,8 @@ class TestContext(TestCase):
                               rxkb.Context)
         self.assertIsInstance(rxkb.Context(load_exotic_rules=True),
                               rxkb.Context)
+        self.assertIsInstance(rxkb.Context(no_secure_getenv=True),
+                              rxkb.Context)
 
     def test_include_path_append(self):
         ctx = rxkb.Context(no_default_includes=True)

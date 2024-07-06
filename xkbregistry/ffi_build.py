@@ -1,7 +1,7 @@
 from cffi import FFI
 ffibuilder = FFI()
 
-# Currently implemented with reference to libxkbcommon-1.0
+# Currently implemented with reference to libxkbcommon-1.5
 
 ffibuilder.set_source("xkbregistry._ffi", """
 #include <stdarg.h>
@@ -55,6 +55,7 @@ enum rxkb_context_flags {
   RXKB_CONTEXT_NO_FLAGS = ...,
   RXKB_CONTEXT_NO_DEFAULT_INCLUDES = ...,
   RXKB_CONTEXT_LOAD_EXOTIC_RULES = ...,
+  RXKB_CONTEXT_NO_SECURE_GETENV = ...,
 };
 
 enum rxkb_log_level {

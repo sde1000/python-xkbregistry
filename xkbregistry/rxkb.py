@@ -76,12 +76,28 @@ class Context:
     different contexts are completely separated and do not share any
     memory or state.
     """
-    def __init__(self, no_default_includes=False, load_exotic_rules=False):
+    def __init__(self, no_default_includes=False, load_exotic_rules=False,
+                 no_secure_getenv=False):
+        """Create a new context.
+
+        Keyword arguments:
+
+        no_default_includes: if set, create this context with an empty
+        include path.
+
+        load_exotic_rules: if set, load the extra items that are
+        considered too exotic for the default list.
+
+        no_secure_getenv: if set, use getenv() instead of
+        secure_getenv() to obtain environment variables.
+        """
         flags = lib.RXKB_CONTEXT_NO_FLAGS
         if no_default_includes:
             flags = flags | lib.RXKB_CONTEXT_NO_DEFAULT_INCLUDES
         if load_exotic_rules:
             flags = flags | lib.RXKB_CONTEXT_LOAD_EXOTIC_RULES
+        if no_secure_getenv:
+            flags = flags | lib.RXKB_CONTEXT_NO_SECURE_GETENV
         context = lib.rxkb_context_new(flags)
         if not context:
             raise RXKBError("Couldn't create RXKB context")
